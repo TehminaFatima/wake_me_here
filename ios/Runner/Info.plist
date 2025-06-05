@@ -47,3 +47,11 @@
 	<true/>
 </dict>
 </plist>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>We need your location to set wake-up alarms.</string>
+<key>NSLocationAlwaysUsageDescription</key>
+<string>We need background location access to alert you.</string>
+<key>UIBackgroundModes</key>
+<array>
+  <string>location</string>
+</array>
