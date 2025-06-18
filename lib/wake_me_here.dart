@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:wake_me_here/serach_bar.dart';
 
 class WakeMeHereApp extends StatelessWidget {
-  const WakeMeHereApp({super.key});
+  WakeMeHereApp({super.key});
+  final TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -12,19 +13,7 @@ class WakeMeHereApp extends StatelessWidget {
         appBar: AppBar(title: const Text('Wake Me Here'), centerTitle: true),
         body: Column(
           children: <Widget>[
-            Container(
-              margin: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Icon(Iconsax.search_normal, size: 30, color: Colors.black),
-                ],
-              ),
-            ),
+            LocationSearchBar(controller: controller),
             Center(
               child: Container(
                 child: const Text(
