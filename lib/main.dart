@@ -1,17 +1,6 @@
 import 'package:flutter/material.dart';
+import 'wake_me_here.dart';
 
 void main() {
   runApp(const WakeMeHereApp());
-}
-
-class WakeMeHereApp extends StatelessWidget {
-  const WakeMeHereApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Wake Me Here',
-    );
-  }
 }
