@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:iconsax/iconsax.dart';
-import 'services/location_search_service.dart'; // Import the new service file
+import '../services/location_search_service.dart'; // Import the new service file
 
 class LocationSearchBar extends StatelessWidget {
   final TextEditingController controller;

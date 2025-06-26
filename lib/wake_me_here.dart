@@ -1,7 +1,10 @@
+import 'dart:async';
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'map/map.dart';
-import 'search_bar_widget.dart'; // your LocationSearchBar widget
+import 'widgets/search_bar_widget.dart';
+import 'services/permission.dart';
 
 class WakeMeHereApp extends StatefulWidget {
   const WakeMeHereApp({super.key});
@@ -13,10 +16,35 @@ class WakeMeHereApp extends StatefulWidget {
 class _WakeMeHereAppState extends State<WakeMeHereApp> {
   final TextEditingController controller = TextEditingController();
   Prediction? selectedPlace;
+  Position? currentPosition;
+  StreamSubscription<Position>? positionStream;
+
+  @override
+  void initState() {
+    super.initState();
+    _initLocation();
+  }
+
+  Future<void> _initLocation() async {
+    try {
+      await requestLocationPermission();
+      positionStream = getPositionStream().listen((Position position) {
+        setState(() {
+          currentPosition = position;
+        });
+        print(
+          'Current location: \${position.latitude}, \${position.longitude}',
+        );
+      });
+    } catch (e) {
+      print('Location error: \$e');
+    }
+  }
 
   @override
   void dispose() {
     controller.dispose();
+    positionStream?.cancel();
     super.dispose();
   }
 
@@ -28,6 +56,9 @@ class _WakeMeHereAppState extends State<WakeMeHereApp> {
 
   @override
   Widget build(BuildContext context) {
+    double? destLat = double.tryParse(selectedPlace?.lat ?? '');
+    double? destLng = double.tryParse(selectedPlace?.lng ?? '');
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -40,20 +71,20 @@ class _WakeMeHereAppState extends State<WakeMeHereApp> {
             ),
             Expanded(
               child: MapWidget(
-                latitude: double.tryParse(selectedPlace?.lat ?? ''),
-                longitude: double.tryParse(selectedPlace?.lng ?? ''),
+                latitude: destLat,
+                longitude: destLng,
+                currentLat: currentPosition?.latitude,
+                currentLng: currentPosition?.longitude,
               ),
             ),
-
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 if (selectedPlace != null) {
-                  // TODO: Implement location monitoring/alarm here
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Started monitoring location: ${selectedPlace!.description}',
+                        'Started monitoring location: \${selectedPlace!.description}',
                       ),
                     ),
                   );
