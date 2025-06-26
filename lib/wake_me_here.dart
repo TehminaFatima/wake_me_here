@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wake_me_here/serach_bar.dart';
+import 'package:wake_me_here/map/map.dart';
+import 'package:wake_me_here/serach_bar_widget.dart';
 
 class WakeMeHereApp extends StatelessWidget {
   WakeMeHereApp({super.key});
@@ -14,14 +15,7 @@ class WakeMeHereApp extends StatelessWidget {
         body: Column(
           children: <Widget>[
             LocationSearchBar(controller: controller),
-            Center(
-              child: Container(
-                child: const Text(
-                  'Map will be displayed here',
-                  style: TextStyle(fontSize: 24),
-                ),
-              ),
-            ),
+            Expanded(child: MapWidget()),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {

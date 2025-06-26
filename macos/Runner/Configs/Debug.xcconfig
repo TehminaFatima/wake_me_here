@@ -1,2 +1,3 @@
 #include "../../Flutter/Flutter-Debug.xcconfig"
 #include "Warnings.xcconfig"
+GOOGLE_MAPS_API_KEY=AIzaSyA52nUz36r9wog5aQRJFr598t7hztekS5I

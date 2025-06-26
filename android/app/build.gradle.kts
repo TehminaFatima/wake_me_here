@@ -22,17 +22,15 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.wake_me_here"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = flutter.versionCode
-        versionName = flutter.versionName
-        resValue "string", "google_maps_key", project.findProperty("GOOGLE_MAPS_API_KEY") ?: ""
+    applicationId = "com.example.wake_me_here"
+    minSdk = flutter.minSdkVersion
+    targetSdk = flutter.targetSdkVersion
+    versionCode = flutter.versionCode
+    versionName = flutter.versionName
 
-    }
+    resValue("string", "google_maps_key", project.findProperty("GOOGLE_MAPS_API_KEY") as String? ?: "")
+}
+
 
     buildTypes {
         release {
