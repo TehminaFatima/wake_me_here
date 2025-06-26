@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:google_places_flutter/model/prediction.dart';
 import 'package:iconsax/iconsax.dart';
+import 'services/location_search_service.dart'; // Import the new service file
 
 class LocationSearchBar extends StatelessWidget {
   final TextEditingController controller;
   final ValueChanged<String>? onChanged;
   final VoidCallback? onTap;
+  final Function(Prediction) onPlaceSelected;
 
   const LocationSearchBar({
     super.key,
     required this.controller,
     this.onChanged,
     this.onTap,
+    required this.onPlaceSelected,
   });
 
   @override
@@ -34,14 +38,9 @@ class LocationSearchBar extends StatelessWidget {
           const Icon(Iconsax.search_normal, color: Colors.black, size: 24),
           const SizedBox(width: 10),
           Expanded(
-            child: TextField(
+            child: locationSearchTextField(
               controller: controller,
-              onChanged: onChanged,
-              onTap: onTap,
-              decoration: const InputDecoration(
-                hintText: 'Search location...',
-                border: InputBorder.none,
-              ),
+              onPlaceSelected: onPlaceSelected,
             ),
           ),
         ],
